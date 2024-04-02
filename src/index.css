@@ -1,0 +1,65 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .downloadApp {
+    background: none !important;
+    outline: 1px solid white !important;
+    border: none !important;
+    margin-left: 0.5px !important;
+  }
+  .downloadApp:hover {
+    outline-color: #5cc8ff !important;
+    color: #5cc8ff;
+  }
+}
+
+.hamburger-react {
+  @apply *:h-[2px] *:w-[25px];
+}
+
+.globalPadding {
+  @apply px-4 py-4 xm:px-5 md:px-8;
+}
+
+.sectionMargin {
+  @apply mt-16 md:mt-20 xl:mt-24;
+}
+
+.active {
+  @apply text-primary;
+}
+.alice-carousel__stage-item.__active .show {
+  @apply translate-x-0 delay-700;
+}
+
+.nth-child-even :nth-child(even) {
+  @apply text-left md:flex-row-reverse !important;
+}
+.noBg {
+  background: none !important;
+}
+
+.pricingItemHover:hover {
+  cursor: pointer;
+  @apply border-lightBlue;
+}
+
+.pricingItemHover:hover .price {
+  @apply bg-lightBlue text-bgColor;
+}
+
+.afterParentGradient::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: linear-gradient(
+    rgba(36, 42, 46, 0.5),
+    rgba(36, 42, 46, 0.5)
+  );
+  border-radius: 0.25rem;
+}
