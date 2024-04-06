@@ -1,4 +1,4 @@
-import { RouteObject } from "react-router-dom";
+import { Outlet, RouteObject } from "react-router-dom";
 
 import AppLayout from "../ui/AppLayout";
 import HomePage from "../pages/HomePage";
@@ -9,6 +9,15 @@ import DashboardPage from "../pages/DashboardPage";
 import PriceAndServices from "../pages/PriceAndServices";
 import LoginPage from "../pages/LoginPage";
 import RegistrationPage from "../pages/RegistrationPage";
+import PriceAndServiceLayout from "../ui/PriceAndServiceLayout";
+import WashPriceList from "../pages/WashPriceList";
+import WashAndIronPriceList from "../pages/WashAndIronPriceList";
+import DryCleaningPriceList from "../pages/DryCleaningPriceList";
+import DuvetAndBulkyItemPriceList from "../pages/DuvetAndBulkyItemPriceList";
+import ItemPriceList from "../pages/ItemPriceList";
+import PriceListLayout from "../ui/PriceListLayout";
+import PriceEstimatorProvider from "../context/PriceEstimatorContext";
+import ServicesPage from "../pages/ServicesPage";
 
 export const routes: RouteObject[] = [
   {
@@ -17,7 +26,130 @@ export const routes: RouteObject[] = [
       { path: "/", element: <HomePage /> },
       { path: "about-us", element: <AboutUs /> },
       { path: "how-it-works", element: <HowItWorks /> },
-      { path: "prices-and-services", element: <PriceAndServices /> },
+      {
+        path: "prices-and-services",
+        element: (
+          <PriceEstimatorProvider>
+            <Outlet />
+          </PriceEstimatorProvider>
+        ),
+
+        children: [
+          { index: true, element: <PriceAndServices /> },
+          {
+            path: "wash",
+            element: <Outlet />,
+            children: [
+              { element: <PriceAndServices />, index: true },
+              {
+                element: <PriceAndServiceLayout />,
+                children: [
+                  {
+                    path: "pricelist",
+                    element: <PriceListLayout />,
+                    children: [
+                      { element: <WashPriceList />, index: true },
+                      {
+                        path: ":slug",
+                        element: <ItemPriceList />,
+                      },
+                    ],
+                  },
+
+                  { path: "service-details", element: <ServicesPage /> },
+                ],
+              },
+            ],
+          },
+          {
+            path: "wash-and-iron",
+            element: <Outlet />,
+            children: [
+              { element: <PriceAndServices />, index: true },
+              {
+                element: <PriceAndServiceLayout />,
+                children: [
+                  {
+                    path: "pricelist",
+                    element: <PriceListLayout />,
+                    children: [
+                      { element: <WashAndIronPriceList />, index: true },
+                      {
+                        path: ":slug",
+                        element: <ItemPriceList />,
+                      },
+                    ],
+                  },
+
+                  {
+                    path: "service-details",
+
+                    element: <ServicesPage />,
+                  },
+                ],
+              },
+            ],
+          },
+          {
+            path: "dry-cleaning",
+            element: <Outlet />,
+            children: [
+              { element: <PriceAndServices />, index: true },
+              {
+                element: <PriceAndServiceLayout />,
+                children: [
+                  {
+                    path: "pricelist",
+                    element: <PriceListLayout />,
+                    children: [
+                      {
+                        element: <DryCleaningPriceList />,
+                        index: true,
+                      },
+                      {
+                        path: ":slug",
+                        element: <ItemPriceList />,
+                      },
+                    ],
+                  },
+
+                  {
+                    path: "service-details",
+                    element: <ServicesPage />,
+                  },
+                ],
+              },
+            ],
+          },
+          {
+            path: "duvets-bulky-items",
+            element: <Outlet />,
+            children: [
+              { element: <PriceAndServices />, index: true },
+              {
+                element: <PriceAndServiceLayout />,
+                children: [
+                  {
+                    path: "pricelist",
+                    element: <PriceListLayout />,
+                    children: [
+                      { element: <DuvetAndBulkyItemPriceList />, index: true },
+                      {
+                        path: ":slug",
+                        element: <ItemPriceList />,
+                      },
+                    ],
+                  },
+                  {
+                    path: "service-details",
+                    element: <ServicesPage />,
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
       { path: "login", element: <LoginPage /> },
       { path: "login", element: <RegistrationPage /> },
     ],

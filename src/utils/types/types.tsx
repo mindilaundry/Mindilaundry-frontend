@@ -1,3 +1,20 @@
+interface PriceItemsProps {
+  icon: string;
+  title: string;
+  description: string;
+  keywords: string[];
+  price: number;
+  link: string;
+}
+
+export type LocationObject = {
+  pathname: string;
+  search: string;
+  hash: string;
+  state: any;
+  key: string;
+};
+
 export type links = {
   title: string;
   link: string;
@@ -32,10 +49,4 @@ export type exploreServices = {
   buttonTitle: string;
 }[];
 
-export type priceItems = {
-  icon: string;
-  title: string;
-  description: string;
-  keywords: string[];
-  price: number;
-}[];
+export type priceItems = PriceItemsProps[];

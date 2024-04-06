@@ -58,12 +58,12 @@ export const expressServices: laundryCare = [
 
 export const exploreOurServices: exploreServices = [
   {
-    title: "Wash & Fold",
+    title: "Wash",
     items: "T-shirts, trousers, bedsheets and undergarments and other daily.",
     deliveryTime: "Fast delivery 24hr",
     price: 4,
     linkTitle: "see price list",
-    link: "#",
+    link: "/prices-and-services/wash/pricelist",
     buttonTitle: "Order Now",
   },
   {
@@ -72,7 +72,7 @@ export const exploreOurServices: exploreServices = [
     deliveryTime: "Fast delivery 24hr",
     price: 4,
     linkTitle: "see price list",
-    link: "#",
+    link: "/prices-and-services/wash-and-iron/pricelist",
     buttonTitle: "Order Now",
   },
   {
@@ -81,7 +81,7 @@ export const exploreOurServices: exploreServices = [
     deliveryTime: "48hr",
     price: 4,
     linkTitle: "see price list",
-    link: "#",
+    link: "/prices-and-services/dry-cleaning/pricelist",
     buttonTitle: "Order Now",
   },
   {
@@ -90,7 +90,7 @@ export const exploreOurServices: exploreServices = [
     deliveryTime: "48hr",
     price: 6,
     linkTitle: "see price list",
-    link: "#",
+    link: "/prices-and-services/duvets-bulky-items/pricelist",
     buttonTitle: "Order Now",
   },
 ];
@@ -102,6 +102,7 @@ export const pricingItems: priceItems = [
     description: "For everyday laundry bedsheets and towels",
     keywords: ["wash", "tumble dry", "in a bag"],
     price: 4,
+    link: "/prices-and-services/wash/pricelist",
   },
   {
     icon: "icon",
@@ -109,6 +110,7 @@ export const pricingItems: priceItems = [
     description: "For everyday laundry bedsheets that requires ironing",
     keywords: ["wash", "tumble dry", "ironing", "folded or on hangers"],
     price: 6,
+    link: "/prices-and-services/wash-and-iron/pricelist",
   },
   {
     icon: "icon",
@@ -116,6 +118,7 @@ export const pricingItems: priceItems = [
     description: "For everyday laundry bedsheets and towels",
     keywords: ["Dry Cleaning", "ironing", "on hangers"],
     price: 8,
+    link: "/prices-and-services/dry-cleaning/pricelist",
   },
   {
     icon: "icon",
@@ -123,5 +126,6 @@ export const pricingItems: priceItems = [
     description: "For larger items that require extra care",
     keywords: ["custom cleaning"],
     price: 16,
+    link: "/prices-and-services/duvets-bulky-items/pricelist",
   },
 ];

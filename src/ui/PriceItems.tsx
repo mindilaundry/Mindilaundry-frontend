@@ -8,6 +8,7 @@ interface itemsProp {
   description: string;
   keywords: string[];
   price: number;
+  link: string;
 }
 
 const PriceItems = () => {

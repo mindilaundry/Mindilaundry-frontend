@@ -30,6 +30,14 @@
 .active {
   @apply text-primary;
 }
+.active.linkBorderBottom {
+  @apply text-bgDarkColor1;
+}
+
+.active span {
+  @apply scale-100;
+}
+
 .alice-carousel__stage-item.__active .show {
   @apply translate-x-0 delay-700;
 }
@@ -41,13 +49,51 @@
   background: none !important;
 }
 
+.textLeft > * {
+  text-align: left !important;
+  padding-left: 0 !important;
+}
+.textLeft p:last-of-type {
+  justify-content: start !important;
+}
+
+.textLeft .width {
+  @apply w-[75%];
+}
+
+.textLeft .priceTitle {
+  @apply text-3xl md:text-4xl;
+}
+
+.textLeft .description {
+  @apply !mb-6 text-base font-medium xxm:text-lg;
+}
+
 .pricingItemHover:hover {
   cursor: pointer;
-  @apply border-lightBlue;
+  @apply border-primary2;
 }
 
 .pricingItemHover:hover .price {
-  @apply bg-lightBlue text-bgColor;
+  @apply bg-primary2 text-bgColor;
+}
+.alice-carousel__stage-item .priceItemTag:first-of-type {
+  @apply ml-0;
+}
+
+/* .alice-carousel__stage-item .priceItemTag {
+  @apply mr-4 !important;
+} */
+/* .alice-carousel__stage-item .priceItemTag:last-child {
+  @apply mr-0 !important;
+} */
+
+.alice-carousel__stage-item {
+  @apply ml-1 !important;
+}
+
+.active.priceItemTag {
+  @apply bg-lightBlue;
 }
 
 .afterParentGradient::after {
