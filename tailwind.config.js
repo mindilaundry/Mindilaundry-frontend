@@ -29,6 +29,7 @@ export default {
       primary2: "#1c7cc8",
       primaryHover: "#5CC8FF",
       lightPrimary: "#AACBDB",
+      primaryRed: "#9b2c2c",
       accentColor: "HSL(40, 74%, 60%)",
       lightShade: "rgba(112, 204, 253, 0.1)",
       // #fcb936

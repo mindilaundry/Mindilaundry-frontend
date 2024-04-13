@@ -5,15 +5,17 @@ interface PriceDetailContentProp {
   itemName: string;
   price: number;
   service: string;
+  type?: string;
 }
 
 const PriceDetailContent = ({
   itemName,
   price,
   service,
+  type,
 }: PriceDetailContentProp) => {
   const { services: serviceItems, setService } = usePriceEstimator();
-  const handleUpdateServices = () => {
+  const handleAddToPriceEstimator = () => {
     const updatedServices = [...serviceItems]; // Create a copy of the services array
 
     // check if service already exist in the updatedServices
@@ -51,13 +53,20 @@ const PriceDetailContent = ({
 
   return (
     <div className="flex w-full items-center justify-center border-b-[1px] border-lightPrimary py-2 xxm:py-4">
-      <p className="mr-auto text-base capitalize xxm:text-lg">{itemName}</p>{" "}
-      <p className="ml-auto mr-2 w-max text-base font-semibold xxm:text-lg">
+      <p className="mr-auto flex flex-col items-center justify-start gap-y-0 text-base capitalize xxm:text-lg">
+        <span className="mr-auto block text-left">{itemName}</span>
+        {type && (
+          <span className="my-0 mr-auto block text-left text-[.8rem] text-Darkgray text-opacity-70">
+            {type}
+          </span>
+        )}
+      </p>
+      <p className="ml-auto mr-2  w-max  text-left text-base font-semibold xxm:text-lg">
         ${price}
       </p>
       <Button
         className="noBg ml-4 !flex items-center justify-center rounded-md border border-lightPrimary !p-0 text-center text-bgDarkColor1"
-        onClick={handleUpdateServices}
+        onClick={handleAddToPriceEstimator}
       >
         <span className="m-auto mt-0 block !rounded-sm px-2 py-1">+</span>
       </Button>

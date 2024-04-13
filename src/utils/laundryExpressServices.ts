@@ -99,7 +99,7 @@ export const pricingItems: priceItems = [
   {
     icon: "icon",
     title: "wash",
-    description: "For everyday laundry bedsheets and towels",
+    description: "For everyday laundry, bedsheets and towels",
     keywords: ["wash", "tumble dry", "in a bag"],
     price: 4,
     link: "/prices-and-services/wash/pricelist",

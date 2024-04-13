@@ -69,6 +69,15 @@
   @apply !mb-6 text-base font-medium xxm:text-lg;
 }
 
+.inputLabel {
+  top: 0.2rem;
+  opacity: 1;
+}
+
+.textInput:focus + label.textLabel {
+  @apply text-bgDarkColor;
+}
+
 .pricingItemHover:hover {
   cursor: pointer;
   @apply border-primary2;

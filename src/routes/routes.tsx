@@ -10,14 +10,12 @@ import PriceAndServices from "../pages/PriceAndServices";
 import LoginPage from "../pages/LoginPage";
 import RegistrationPage from "../pages/RegistrationPage";
 import PriceAndServiceLayout from "../ui/PriceAndServiceLayout";
-import WashPriceList from "../pages/WashPriceList";
-import WashAndIronPriceList from "../pages/WashAndIronPriceList";
-import DryCleaningPriceList from "../pages/DryCleaningPriceList";
-import DuvetAndBulkyItemPriceList from "../pages/DuvetAndBulkyItemPriceList";
 import ItemPriceList from "../pages/ItemPriceList";
 import PriceListLayout from "../ui/PriceListLayout";
 import PriceEstimatorProvider from "../context/PriceEstimatorContext";
 import ServicesPage from "../pages/ServicesPage";
+import BookingPage from "../pages/BookingPage";
+import BookingLayOut from "../features/Booking/BookingLayOut";
 
 export const routes: RouteObject[] = [
   {
@@ -48,7 +46,6 @@ export const routes: RouteObject[] = [
                     path: "pricelist",
                     element: <PriceListLayout />,
                     children: [
-                      { element: <WashPriceList />, index: true },
                       {
                         path: ":slug",
                         element: <ItemPriceList />,
@@ -73,7 +70,6 @@ export const routes: RouteObject[] = [
                     path: "pricelist",
                     element: <PriceListLayout />,
                     children: [
-                      { element: <WashAndIronPriceList />, index: true },
                       {
                         path: ":slug",
                         element: <ItemPriceList />,
@@ -103,10 +99,6 @@ export const routes: RouteObject[] = [
                     element: <PriceListLayout />,
                     children: [
                       {
-                        element: <DryCleaningPriceList />,
-                        index: true,
-                      },
-                      {
                         path: ":slug",
                         element: <ItemPriceList />,
                       },
@@ -133,7 +125,6 @@ export const routes: RouteObject[] = [
                     path: "pricelist",
                     element: <PriceListLayout />,
                     children: [
-                      { element: <DuvetAndBulkyItemPriceList />, index: true },
                       {
                         path: ":slug",
                         element: <ItemPriceList />,
@@ -149,6 +140,11 @@ export const routes: RouteObject[] = [
             ],
           },
         ],
+      },
+      {
+        path: "booking",
+        element: <BookingLayOut />,
+        children: [{ element: <BookingPage />, index: true }],
       },
       { path: "login", element: <LoginPage /> },
       { path: "login", element: <RegistrationPage /> },

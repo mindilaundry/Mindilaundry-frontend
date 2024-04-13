@@ -1,5 +1,5 @@
 import { MdOutlineKeyboardArrowRight } from "react-icons/md";
-import { Fragment } from "react/jsx-runtime";
+// import { Fragment } from "react/jsx-runtime";
 import Button from "./Button";
 import { useNavigate } from "react-router-dom";
 import PriceListHeader from "./PriceListHeader";

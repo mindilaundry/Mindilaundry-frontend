@@ -21,7 +21,7 @@ const Header = () => {
         />
 
         <LinkButton
-          to="/order"
+          to="/booking"
           title="Order"
           className=" ml-auto rounded-full bg-primary px-4 py-2 text-sm font-semibold text-bgColor transition-all duration-300 ease-in hover:bg-primaryHover sm:font-bold md:px-5 md:py-2 md:text-base lg:ml-4"
         />

@@ -1,5 +1,5 @@
-import { usePriceEstimator } from "../hooks/usePriceEstimator";
-import Button from "./Button";
+import { usePriceEstimator } from "../../hooks/usePriceEstimator";
+import Button from "../../ui/Button";
 interface PriceEstimatorItemProp {
   service: string;
   items: { itemName: string; quantity: number; price: number }[];
@@ -54,7 +54,9 @@ const PriceEstimatorItem = ({ service, items }: PriceEstimatorItemProp) => {
     <div className="flex w-full flex-col items-start justify-between gap-y-2 border-b-[1px] border-b-lightPrimary pb-4 pt-2">
       <div className="mb-2 flex items-center justify-start gap-2">
         <div className="h-8 w-8 rounded-full bg-bgDarkColor1"></div>
-        <h3 className="text-base font-bold capitalize">{service}</h3>
+        <h3 className="text-base font-bold capitalize text-opacity-40">
+          {service}
+        </h3>
       </div>
       {items &&
         items.map((item, i) => (
@@ -65,7 +67,7 @@ const PriceEstimatorItem = ({ service, items }: PriceEstimatorItemProp) => {
             <p className="max-w-[45%] text-sm capitalize xxm:text-base md:max-w-[50%]">
               {item.itemName}
             </p>
-            <div className="ml:left-[50%] absolute left-[42%] top-1/2 flex -translate-y-1/2 transform items-center justify-start gap-3 text-sm xxm:left-[52%] sm:gap-4 md:left-[60%] xl:left-[50%]">
+            <div className="absolute left-[42%] top-1/2 flex -translate-y-1/2 transform items-center justify-start gap-3 text-sm xxm:left-[52%] sm:gap-4 md:left-[60%] ml:left-[50%] xl:left-[50%]">
               <Button
                 className="noBg !flex items-center justify-center rounded-md border border-lightPrimary !p-0 text-center text-bgDarkColor1"
                 onClick={() =>

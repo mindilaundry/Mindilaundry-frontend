@@ -8,10 +8,8 @@ const ServiceDetails = () => {
   const { pageTitle } = getPageInformation(location);
   const services = AllServices[normalizeString(pageTitle)];
 
-  console.log(services);
-
   return (
-    <section className="w-full">
+    <section className="mb-28 w-full ml:mb-0">
       {services &&
         services.map((service, i) => (
           <ServiceDetailsContent {...service} key={i} />

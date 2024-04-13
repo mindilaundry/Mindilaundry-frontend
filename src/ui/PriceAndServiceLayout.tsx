@@ -4,7 +4,7 @@ import { FaAngleLeft } from "react-icons/fa6";
 import Button from "./Button";
 import PriceListHeader from "./PriceListHeader";
 import { getPageInformation, normalizeString } from "../utils/helper";
-import PriceEstimator from "../features/PriceEstimator";
+import PriceEstimator from "../features/PriceEstimator/PriceEstimator";
 
 const PriceAndServiceLayout = () => {
   const navigate = useNavigate();
@@ -24,7 +24,7 @@ const PriceAndServiceLayout = () => {
   })!;
 
   return (
-    <div className="w-full">
+    <div className=" relative w-full">
       <nav className="globalPadding w-full bg-primary2">
         <ul className="m-auto flex w-full max-w-custom2 items-center justify-start gap-x-4">
           {pricingItems.map((item, i) => {
@@ -49,8 +49,8 @@ const PriceAndServiceLayout = () => {
           </Button>
         </div>
       </div>
-      <div className="relatiive globalPadding ml:flex-row m-auto flex w-full max-w-custom2 flex-col items-center justify-between gap-8">
-        <div className="ml:w-[55%] mb-auto w-full lg:w-[60%] xl:w-[63%]">
+      <div className="globalPadding m-auto flex w-full max-w-custom2 flex-col items-center justify-between gap-8 ml:flex-row">
+        <div className="mb-auto w-full ml:w-[55%] lg:w-[60%]">
           <div className="w-full">
             <PriceListHeader
               icon={item.icon}
@@ -80,7 +80,7 @@ const PriceAndServiceLayout = () => {
           </div>
           <Outlet />
         </div>
-        <div className="ml:max-w-[400px] static top-80 mb-auto w-full">
+        <div className="globalPadding fixed bottom-[0px]  left-0 flex w-full items-center justify-end bg-bgColor ml:sticky ml:top-0 ml:max-w-[380px] ml:self-start ml:p-0 lg:max-w-[400px]">
           <PriceEstimator />
         </div>
       </div>

@@ -1,4 +1,4 @@
-interface PriceItemsProps {
+export interface PriceItemsProps {
   icon: string;
   title: string;
   description: string;
@@ -47,6 +47,12 @@ export type exploreServices = {
   linkTitle: string;
   link: string;
   buttonTitle: string;
+}[];
+
+export type BookingInstructions = {
+  icon: string;
+  title: string;
+  instruction: string;
 }[];
 
 export type priceItems = PriceItemsProps[];
