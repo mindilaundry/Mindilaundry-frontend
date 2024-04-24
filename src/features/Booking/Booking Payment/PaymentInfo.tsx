@@ -3,7 +3,7 @@ import PaymentInfoContent from "./PaymentInfoContent";
 
 const PaymentInfo = () => {
   return (
-    <div className="w-full overflow-hidden rounded-md">
+    <div className="md:12 mt-10 w-full overflow-hidden rounded-md">
       <div className="w-full bg-lightBlue p-3 text-left xxm:p-4">
         <p className="font-semibold">How much do I pay?</p>
       </div>

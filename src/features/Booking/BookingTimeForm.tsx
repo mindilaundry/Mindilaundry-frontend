@@ -10,10 +10,12 @@ import {
 } from "../../utils/bookingSchedule";
 
 import SelectInput from "../../ui/SelectInput";
-import Button from "../../ui/Button";
 import RadioInput from "../../ui/RadioInput";
 import TextAreaInput from "../../ui/TextAreaInput";
 import RadionInputContent from "./RadioInputContent";
+import NextStepButton from "./NextStepButton";
+import { useBookings } from "../../hooks/useBookings";
+import { nextStep } from "../../utils/helper";
 
 enum SelectDayEnum {
   today = "today",
@@ -34,18 +36,24 @@ interface IFormInput {
 }
 
 const BookingTimeForm = () => {
+  const { setBookings } = useBookings();
   const {
     register,
     handleSubmit,
     formState: { errors },
     control,
-  } = useForm<IFormInput>({ mode: "all" });
+  } = useForm<IFormInput>({ mode: "onBlur" });
   const value = useWatch({
     control,
     name: ["frequency", "collectionDay", "deliveryDay"],
   });
 
-  const onSubmit: SubmitHandler<IFormInput> = (data) => console.log(data);
+  const onSubmit: SubmitHandler<IFormInput> = (data) => {
+    nextStep();
+    setBookings((prev) => {
+      return { ...prev, collectionAndDeliveryTime: data };
+    });
+  };
   const onError = (errors: FieldErrors<IFormInput>) => console.log(errors);
 
   return (
@@ -241,8 +249,7 @@ const BookingTimeForm = () => {
             />
           </div>
         </div>
-
-        <Button type="submit">Submit</Button>
+        <NextStepButton />
       </form>
     </div>
   );

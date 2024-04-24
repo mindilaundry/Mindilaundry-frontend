@@ -4,6 +4,9 @@ import ServiceTypeContent from "./ServiceTypeContent";
 import { pricingItems } from "../../utils/laundryExpressServices";
 import BookingInfo from "./BookingInfo";
 import BookingWhatNext from "./BookingWhatNext";
+import { nextStep } from "../../utils/helper";
+import { useBookings } from "../../hooks/useBookings";
+import NextStepButton from "./NextStepButton";
 
 interface IFormInput {
   wash: boolean;
@@ -13,6 +16,7 @@ interface IFormInput {
 }
 
 const BookingServiceTypeForm = () => {
+  const { setBookings } = useBookings();
   const { register, handleSubmit, control } = useForm<IFormInput>({
     // defaultValues: {
     //   wash: false,
@@ -26,7 +30,13 @@ const BookingServiceTypeForm = () => {
     name: ["wash", "wash & iron", "Dry Cleaning", "Duvets & Bulky Items"],
   });
 
-  const onSubmit: SubmitHandler<IFormInput> = (data) => console.log(data);
+  // const onSubmit: SubmitHandler<IFormInput> = (data) => console.log(data);
+  const onSubmit: SubmitHandler<IFormInput> = (data) => {
+    nextStep();
+    setBookings((prev) => {
+      return { ...prev, services: data };
+    });
+  };
   const onError = (errors: FieldErrors<IFormInput>) => console.log(errors);
 
   return (
@@ -47,10 +57,11 @@ const BookingServiceTypeForm = () => {
               checked={!!value[i]}
             />
           ))}
+
+        <NextStepButton />
       </form>
       <BookingInfo />
       <BookingWhatNext />
-      <Button type="submit">Submit</Button>
     </div>
   );
 };

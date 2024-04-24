@@ -21,7 +21,7 @@ const PriceEstimator = () => {
   };
 
   const handleGotoBooking = () => {
-    navigate("/booking");
+    navigate("/booking/#step1");
   };
 
   return (

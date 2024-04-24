@@ -3,6 +3,10 @@ import Input from "../../ui/Input";
 import CustomerTypeInput from "../../ui/CustomerTypeInput";
 import Button from "../../ui/Button";
 import LinkButton from "../../ui/LinkButton";
+import { useBookings } from "../../hooks/useBookings";
+import { useEffect } from "react";
+import NextStepButton from "./NextStepButton";
+import { nextStep } from "../../utils/helper";
 
 interface IFormInput {
   firstName: string;
@@ -20,12 +24,28 @@ const BookingContact = () => {
     control,
   } = useForm<IFormInput>({
     mode: "onBlur",
-    defaultValues: { customerType: "individual" },
+    defaultValues: {
+      customerType: "individual",
+      firstName: "",
+      lastName: "",
+      phoneNumber: "" as unknown as number,
+      email: "",
+    },
+  });
+  const value = useWatch({
+    control,
+    name: ["customerType", "firstName", "lastName", "email", "phoneNumber"],
   });
 
-  const value = useWatch({ control, name: "customerType" });
+  const { setBookings } = useBookings();
 
-  const onSubmit: SubmitHandler<IFormInput> = (data) => console.log(data);
+  const onSubmit: SubmitHandler<IFormInput> = (data) => {
+    nextStep();
+    setBookings((prev) => {
+      return { ...prev, contact: data };
+    });
+  };
+
   const onError = (errors: FieldErrors<IFormInput>) => console.log(errors);
   return (
     <div className="flex flex-col items-center justify-between" id="step4">
@@ -97,12 +117,12 @@ const BookingContact = () => {
               },
             }}
           />
-          {value === "company" ? (
+          {value[0] === "company" ? (
             <Input
               type="text"
               placeholder="Company Name"
               label="Company Name"
-              name="lastName"
+              name="companyName"
               id="CompanyName"
               error={errors}
               register={register}
@@ -116,6 +136,21 @@ const BookingContact = () => {
           ) : (
             ""
           )}
+          <Input
+            type="number"
+            placeholder="Phone Number"
+            label="Phone Number"
+            name="phoneNumber"
+            id="phoneNumber"
+            error={errors}
+            register={register}
+            validationSchema={{
+              required: {
+                value: true,
+                message: "This field is required",
+              },
+            }}
+          />
           <Input
             type="email"
             placeholder="Email"
@@ -132,7 +167,7 @@ const BookingContact = () => {
             }}
           />
         </div>
-        <Button type="submit">Submit</Button>
+        <NextStepButton />
       </form>
     </div>
   );

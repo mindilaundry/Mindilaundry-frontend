@@ -7,6 +7,13 @@ export interface PriceItemsProps {
   link: string;
 }
 
+export interface ServicesProp {
+  wash: boolean;
+  "wash & iron": boolean;
+  "Dry Cleaning": boolean;
+  "Duvets & Bulky Items": boolean;
+}
+
 export type LocationObject = {
   pathname: string;
   search: string;

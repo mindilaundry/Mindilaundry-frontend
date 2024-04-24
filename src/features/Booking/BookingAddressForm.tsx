@@ -3,10 +3,14 @@ import { FaLocationArrow } from "react-icons/fa";
 import { MdHome } from "react-icons/md";
 import { MdHotel } from "react-icons/md";
 import { HiOfficeBuilding } from "react-icons/hi";
+import { useBookings } from "../../hooks/useBookings";
+
 import Button from "../../ui/Button";
 import Input from "../../ui/Input";
 import RadioInput from "../../ui/RadioInput";
 import RadionInputContent from "./RadioInputContent";
+import { nextStep } from "../../utils/helper";
+import NextStepButton from "./NextStepButton";
 
 enum AddressTypeEnum {
   home = "home",
@@ -17,19 +21,33 @@ enum AddressTypeEnum {
 interface IFormInput {
   address: string;
   addressDetails: string;
-  addressType: AddressTypeEnum;
+  addressType: AddressTypeEnum | string;
 }
 
 const BookingAddressForm = () => {
+  const { bookings, setBookings } = useBookings();
   const {
     register,
     handleSubmit,
     formState: { errors },
     control,
-  } = useForm<IFormInput>({ mode: "onBlur" });
+  } = useForm<IFormInput>({
+    mode: "onBlur",
+    defaultValues: {
+      address: bookings.customerAddress.address,
+      addressDetails: bookings.customerAddress.addressDetails,
+      addressType: bookings.customerAddress.addressType,
+    },
+  });
 
   const value = useWatch({ control, name: "addressType" });
-  const onSubmit: SubmitHandler<IFormInput> = (data) => console.log(data);
+  const onSubmit: SubmitHandler<IFormInput> = (data) => {
+    nextStep();
+    setBookings((prev) => {
+      return { ...prev, customerAddress: data };
+    });
+  };
+
   const onError = (errors: FieldErrors<IFormInput>) => console.log(errors);
 
   return (
@@ -38,8 +56,8 @@ const BookingAddressForm = () => {
         Get Your Address
       </h1>
       <form
-        className="mt-8 flex w-full flex-col items-start justify-between gap-y-6 md:mt-16"
         onSubmit={handleSubmit(onSubmit, onError)}
+        className="mt-8 flex w-full flex-col items-start justify-between gap-y-6 md:mt-16"
       >
         <div className="flex w-full flex-col items-start justify-between gap-y-2">
           <Input
@@ -155,7 +173,7 @@ const BookingAddressForm = () => {
             )}
           </div>
         </div>
-        <Button type="submit">Submit</Button>
+        <NextStepButton />
       </form>
     </div>
   );

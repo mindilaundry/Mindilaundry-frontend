@@ -86,6 +86,13 @@
 .pricingItemHover:hover .price {
   @apply bg-primary2 text-bgColor;
 }
+
+.borderBottomNone:last-of-type {
+  @apply ml:border-b-0;
+}
+.bordertop:first-of-type {
+  @apply ml:border-t-[1px];
+}
 .alice-carousel__stage-item .priceItemTag:first-of-type {
   @apply ml-0;
 }

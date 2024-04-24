@@ -88,7 +88,6 @@ const BookingPayment = () => {
           />
         </div>
         <PaymentInfo />
-        <Button type="submit">Submit</Button>
       </form>
     </div>
   );
