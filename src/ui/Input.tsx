@@ -12,6 +12,7 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   error: DeepMap<FieldValues, FieldErrors>;
   register: UseFormRegister<any>;
   validationSchema?: RegisterOptions;
+  className?: string;
 }
 
 const Input = ({
@@ -19,6 +20,7 @@ const Input = ({
   register,
   validationSchema,
   error,
+  className,
   ...rest
 }: InputProps) => {
   const [isFocused, setIsFocused] = useState(false);
@@ -36,7 +38,7 @@ const Input = ({
       <input
         {...rest}
         {...register(rest.name!, validationSchema)}
-        className={`textInput h-10 w-full rounded-md border border-lightPrimary bg-bgColor px-6 py-7 font-semibold capitalize outline-none transition-all duration-100 ease-linear first-letter:capitalize placeholder:text-sm placeholder:font-medium placeholder:text-Darkgray placeholder:text-opacity-70 focus:border focus:border-primary focus:placeholder:text-opacity-0 m:h-12 m:text-base m:placeholder:text-base md:h-14 ${isFocused ? "pt-8" : ""}`}
+        className={`textInput h-10 w-full rounded-md border border-lightPrimary bg-bgColor px-6 py-7 font-semibold outline-none transition-all duration-100 ease-linear first-letter:capitalize placeholder:text-sm placeholder:font-medium placeholder:text-Darkgray placeholder:text-opacity-70 focus:border focus:border-primary focus:placeholder:text-opacity-0 m:h-12 m:text-base m:placeholder:text-base md:h-14 ${isFocused ? "pt-8" : ""}${className ? className : "capitalize "}`}
         onFocus={() => {
           setIsFocused(true);
         }}

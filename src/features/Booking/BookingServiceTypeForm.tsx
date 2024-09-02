@@ -1,4 +1,3 @@
-import Button from "../../ui/Button";
 import { useForm, SubmitHandler, FieldErrors, useWatch } from "react-hook-form";
 import ServiceTypeContent from "./ServiceTypeContent";
 import { pricingItems } from "../../utils/laundryExpressServices";
@@ -16,21 +15,34 @@ interface IFormInput {
 }
 
 const BookingServiceTypeForm = () => {
-  const { setBookings } = useBookings();
+  const { bookings, setBookings } = useBookings();
   const { register, handleSubmit, control } = useForm<IFormInput>({
-    // defaultValues: {
-    //   wash: false,
-    //   "wash & iron": false,
-    //   "Dry Cleaning": false,
-    //   "Duvets & Bulky Items": false,
-    // },
+    defaultValues: {
+      wash: bookings.services.wash,
+      "wash & iron": bookings.services["wash & iron"],
+      "Dry Cleaning": bookings.services["Dry Cleaning"],
+      "Duvets & Bulky Items": bookings.services["Duvets & Bulky Items"],
+    },
   });
   const value = useWatch({
     control,
     name: ["wash", "wash & iron", "Dry Cleaning", "Duvets & Bulky Items"],
   });
 
-  // const onSubmit: SubmitHandler<IFormInput> = (data) => console.log(data);
+  const checkInput = (inputs: Array<boolean>) => {
+    for (const input of inputs) {
+      if (input) return false;
+    }
+    return true;
+  };
+
+  const checkInput2 = (
+    itemTitle: keyof IFormInput,
+    bookings: IFormInput,
+  ): boolean => {
+    return bookings[itemTitle];
+  };
+
   const onSubmit: SubmitHandler<IFormInput> = (data) => {
     nextStep();
     setBookings((prev) => {
@@ -54,11 +66,14 @@ const BookingServiceTypeForm = () => {
               register={register}
               key={i}
               {...item}
-              checked={!!value[i]}
+              checked={
+                !!value[i] ||
+                checkInput2(item.title as keyof IFormInput, bookings.services)
+              }
             />
           ))}
 
-        <NextStepButton />
+        <NextStepButton disabled={checkInput(value)} />
       </form>
       <BookingInfo />
       <BookingWhatNext />

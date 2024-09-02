@@ -31,18 +31,48 @@ enum FrequencyEnum {
 
 interface IFormInput {
   collectionDay: SelectDayEnum;
-  deliveryDay: SelectDayEnum;
+  deliveryDay: SelectDayEnum | string;
   frequency: FrequencyEnum;
+  driverInstruction: string | undefined;
+  collectionTime: string;
+  collectionMethod: string;
+  deliveryTime: string;
+  deliveryMethod: string;
 }
 
 const BookingTimeForm = () => {
-  const { setBookings } = useBookings();
+  const { bookings, setBookings } = useBookings();
   const {
     register,
     handleSubmit,
     formState: { errors },
     control,
-  } = useForm<IFormInput>({ mode: "onBlur" });
+  } = useForm<IFormInput>({
+    mode: "onBlur",
+    defaultValues: {
+      collectionDay:
+        SelectDayEnum.today ||
+        bookings.collectionAndDeliveryTime.collectiontDay,
+      collectionTime:
+        "09:00 AM - 12:00 PM" ||
+        bookings.collectionAndDeliveryTime.collectionTime,
+      collectionMethod:
+        "Collect from me in person" ||
+        bookings.collectionAndDeliveryTime.collectionMethod,
+      deliveryDay:
+        generateDayOptions("delivery")[0].value ||
+        bookings.collectionAndDeliveryTime.deliveryDay,
+      deliveryTime:
+        "09:00 AM - 12:00 PM" ||
+        bookings.collectionAndDeliveryTime.deliveryTime,
+      deliveryMethod:
+        "Deliver to me in person" ||
+        bookings.collectionAndDeliveryTime.deliveryMethod,
+      driverInstruction: bookings.collectionAndDeliveryTime.driverInstruction,
+      frequency:
+        FrequencyEnum.once || bookings.collectionAndDeliveryTime.frequency,
+    },
+  });
   const value = useWatch({
     control,
     name: ["frequency", "collectionDay", "deliveryDay"],

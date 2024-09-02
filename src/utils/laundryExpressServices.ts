@@ -4,6 +4,7 @@ import {
   lady,
   laundryMachineIcon,
   laundryMachineIcon2,
+  washAndIronIcon,
   washingBasket,
 } from "./images";
 
@@ -97,7 +98,7 @@ export const exploreOurServices: exploreServices = [
 
 export const pricingItems: priceItems = [
   {
-    icon: "icon",
+    icon: washAndIronIcon,
     title: "wash",
     description: "For everyday laundry, bedsheets and towels",
     keywords: ["wash", "tumble dry", "in a bag"],

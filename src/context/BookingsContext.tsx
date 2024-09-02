@@ -27,11 +27,11 @@ interface ServicesProp {
 }
 
 interface ContactProp {
-  customerType: string;
+  customerType: "individual" | "company";
   firstName: string;
   lastName: string;
-  companyname?: string;
-  phoneNumber: number;
+  companyName?: string;
+  phoneNumber: string;
   email: string;
 }
 
@@ -45,7 +45,6 @@ interface BookingsProps {
 interface contextType {
   bookings: BookingsProps;
   setBookings: React.Dispatch<React.SetStateAction<BookingsProps>>;
-  updateBookingData: (formData: FieldValues) => void;
 }
 
 // initial State
@@ -72,11 +71,11 @@ const initialState: BookingsProps = {
     "Duvets & Bulky Items": false,
   },
   contact: {
-    customerType: "",
+    customerType: "individual",
     firstName: "",
     lastName: "",
     email: "",
-    phoneNumber: "" as unknown as number,
+    phoneNumber: "",
   },
 };
 
@@ -84,9 +83,6 @@ const initialState: BookingsProps = {
 const defaultContextValue: contextType = {
   bookings: initialState,
   setBookings: () => {},
-  updateBookingData: function (): void {
-    throw new Error("Function not implemented.");
-  },
 };
 
 export const BookingsContext = createContext(defaultContextValue);
@@ -98,18 +94,8 @@ const BookingsContextProvider = ({ children }: BookingContextProviderProp) => {
   const [bookings, setBookings] = useState<BookingsProps>(initialState);
   const methods = useForm();
 
-  const updateBookingData = (formData: FieldValues) => {
-    // Update context with form values
-    setBookings((prev) => ({
-      ...prev,
-      ...formData,
-    }));
-  };
-
   return (
-    <BookingsContext.Provider
-      value={{ bookings, setBookings, updateBookingData }}
-    >
+    <BookingsContext.Provider value={{ bookings, setBookings }}>
       <FormProvider {...methods}>{children}</FormProvider>
     </BookingsContext.Provider>
   );

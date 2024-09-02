@@ -1,43 +1,49 @@
-import { InputHTMLAttributes } from "react";
-import {
-  FieldErrors,
-  UseFormRegister,
-  FieldValues,
-  RegisterOptions,
-  DeepMap,
-} from "react-hook-form";
+import { InputHTMLAttributes, useState } from "react";
+import { DeepMap, FieldValues, FieldErrors } from "react-hook-form";
 
-interface PaymentInputProps extends InputHTMLAttributes<HTMLInputElement> {
-  className?: string;
-  label: string;
+interface PaymentInputProp extends InputHTMLAttributes<HTMLInputElement> {
   error: DeepMap<FieldValues, FieldErrors>;
-  register: UseFormRegister<any>;
-  validationSchema?: RegisterOptions;
+  name: string;
+  label: string;
+  id: string;
+  onChange?: React.ChangeEventHandler<HTMLInputElement>;
+  className?: string;
 }
 
 const PaymentInput = ({
+  name,
   label,
-  register,
-  validationSchema,
+  id,
   error,
   className,
+  onChange,
   ...rest
-}: PaymentInputProps) => {
+}: PaymentInputProp) => {
+  const [isFocused, setIsFocused] = useState(false);
   return (
-    <div
-      className={`relative flex w-full flex-col items-start justify-between gap-y-1 ${className}`}
-    >
-      <label htmlFor={rest.id} className="text-Darkgray">
+    <div className="relative w-full">
+      <label
+        htmlFor={id || name}
+        className={`absolute left-6 top-3 text-sm text-primary opacity-0 transition-all duration-100 ease-linear first-letter:capitalize m:text-[.9rem] ${
+          isFocused ? "inputLabel" : ""
+        }`}
+      >
         {label}
       </label>
       <input
         {...rest}
-        {...register(rest.name!, validationSchema)}
-        className={`textInput h-10 w-full rounded-md border border-lightPrimary bg-bgColor px-6 py-7 font-semibold capitalize outline-none transition-all duration-100 ease-linear first-letter:capitalize placeholder:text-sm placeholder:font-medium placeholder:text-Darkgray placeholder:text-opacity-70 focus:border focus:border-primary m:h-12 m:text-base m:placeholder:text-base md:h-14`}
+        onChange={onChange}
+        className={`textInput h-10 w-full rounded-md border border-lightPrimary bg-bgColor px-6 py-7 font-semibold outline-none transition-all duration-100 ease-linear first-letter:capitalize placeholder:text-sm placeholder:font-medium placeholder:text-Darkgray placeholder:text-opacity-70 focus:border focus:border-primary focus:placeholder:text-opacity-0 m:h-12 m:text-base m:placeholder:text-base md:h-12 ${isFocused ? "!pt-12" : ""}${className ? className : "capitalize "}`}
+        onFocus={() => {
+          setIsFocused(true);
+        }}
+        onBlur={(e) => {
+          setIsFocused(!!e.target.value);
+        }}
       />
-      {error && error[rest.name!] && (
+      {error && error[name!] && (
         <span className="absolute -bottom-5 right-0 text-[.8rem] text-primaryRed">
-          {error[rest.name!].message}
+          {error[name!].message}
         </span>
       )}
     </div>

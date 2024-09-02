@@ -1,5 +1,8 @@
 import { image } from "./types/types";
 
+import creditCard from "/src/assets/images/creditCard2.png";
+import washAndIron from "/images/washAndIronImg.jpg";
+
 // Services Icons Import
 import laundryMachine from "/laundryServiceIcons/laundry-machine.png";
 import laundryMachine2 from "/laundryServiceIcons/laundry-machine2.png";
@@ -42,7 +45,17 @@ export const lady: image = {
 };
 
 // Banner Images Export
-export const scheduleBannerImage = {
+export const scheduleBannerImage: image = {
   src: schedule,
   altText: "person-making-a-call",
+};
+
+export const paymentCard: image = {
+  src: creditCard,
+  altText: "credit cards",
+};
+
+export const washAndIronIcon: image = {
+  src: washAndIron,
+  altText: "wash and iron icon",
 };

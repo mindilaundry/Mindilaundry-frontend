@@ -1,5 +1,14 @@
+export type image = {
+  src: string;
+  altText: string;
+};
+
 export interface PriceItemsProps {
-  icon: string;
+  icon: string
+    | {
+        src: string;
+        altText: string;
+      };
   title: string;
   description: string;
   keywords: string[];
@@ -26,11 +35,6 @@ export type links = {
   title: string;
   link: string;
 }[];
-
-export type image = {
-  src: string;
-  altText: string;
-};
 
 export type laundryExpressServices = {
   Image: image;

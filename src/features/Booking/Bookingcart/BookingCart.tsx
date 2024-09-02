@@ -14,13 +14,6 @@ const BookingCart = () => {
     setShowCartItems(!showCartItems);
   };
 
-  // const handleNextButtonClick = () => {
-  // return updateBookingData(data); // Update context with form data
-  //  ;
-  // Update hash ID to display the next form
-  // Example: window.location.hash = "#step2";
-  // };
-
   const servicesArray = getSelectedSevices(bookings.services, pricingItems);
 
   return (

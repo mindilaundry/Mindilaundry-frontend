@@ -1,7 +1,10 @@
 import { Fragment } from "react";
 
 interface PriceListHeaderProp {
-  icon: string;
+  icon: {
+    src: string;
+    altText: string;
+  };
   title: string;
   description: string;
   keywords: string[];
@@ -22,7 +25,7 @@ const PriceListHeader = ({
       className={`flex w-full items-center justify-start ${className} ${direction ? direction : "flex-col"}`}
     >
       <div className="h-20 w-20 rounded-full bg-purple text-center xm:h-28 xm:w-28">
-        {icon}
+        <img src={icon.src} alt={icon.altText} className="h-full w-full" />
       </div>
       <div className="width space-y-3 px-4 text-center">
         <h3 className="priceTitle text-xl font-semibold  capitalize">

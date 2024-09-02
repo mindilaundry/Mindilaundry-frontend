@@ -75,7 +75,19 @@
 }
 
 .textInput:focus + label.textLabel {
-  @apply text-bgDarkColor;
+  @apply !text-bgDarkColor;
+}
+
+.phoneInputStyle {
+  @apply textInput !ml-4 w-full !rounded-md border !border-lightPrimary !bg-bgColor !px-6 !py-7 !text-base !font-semibold capitalize !text-bgDarkColor1 !outline-none transition-all duration-100 ease-linear first-letter:capitalize placeholder:text-sm placeholder:font-medium placeholder:text-Darkgray placeholder:text-opacity-70 focus:border focus:!border-primary focus:placeholder:text-opacity-0 m:placeholder:text-base;
+}
+
+.react-international-phone-country-selector {
+  @apply !h-full;
+}
+
+.react-international-phone-country-selector-button {
+  @apply !h-full !rounded-md  !border-lightPrimary px-3 focus:!border-primary;
 }
 
 .pricingItemHover:hover {

@@ -1,22 +1,30 @@
-import { useForm, SubmitHandler, FieldErrors, useWatch } from "react-hook-form";
+import {
+  useForm,
+  SubmitHandler,
+  FieldErrors,
+  useWatch,
+  useController,
+} from "react-hook-form";
+import { PhoneInput } from "react-international-phone";
+import "react-international-phone/style.css";
 import Input from "../../ui/Input";
 import CustomerTypeInput from "../../ui/CustomerTypeInput";
-import Button from "../../ui/Button";
 import LinkButton from "../../ui/LinkButton";
 import { useBookings } from "../../hooks/useBookings";
-import { useEffect } from "react";
 import NextStepButton from "./NextStepButton";
-import { nextStep } from "../../utils/helper";
+import { isPhoneValid, nextStep } from "../../utils/helper";
 
 interface IFormInput {
   firstName: string;
   lastName: string;
-  phoneNumber: number;
+  phoneNumber: string;
   email: string;
   customerType: "company" | "individual";
+  companyName: string | undefined;
 }
 
 const BookingContact = () => {
+  const { bookings, setBookings } = useBookings();
   const {
     register,
     handleSubmit,
@@ -25,11 +33,12 @@ const BookingContact = () => {
   } = useForm<IFormInput>({
     mode: "onBlur",
     defaultValues: {
-      customerType: "individual",
-      firstName: "",
-      lastName: "",
-      phoneNumber: "" as unknown as number,
-      email: "",
+      customerType: bookings.contact.customerType as "company" | "individual",
+      firstName: bookings.contact.firstName,
+      lastName: bookings.contact.lastName,
+      phoneNumber: bookings.contact.phoneNumber,
+      email: bookings.contact.email,
+      companyName: bookings.contact.companyName,
     },
   });
   const value = useWatch({
@@ -37,7 +46,19 @@ const BookingContact = () => {
     name: ["customerType", "firstName", "lastName", "email", "phoneNumber"],
   });
 
-  const { setBookings } = useBookings();
+  const { field } = useController({
+    name: "phoneNumber",
+    control,
+    rules: {
+      required: {
+        value: true,
+        message: "This field is required",
+      },
+      validate: {
+        isPhoneValid: (value) => isPhoneValid(value) || "Invalid phone number",
+      },
+    },
+  });
 
   const onSubmit: SubmitHandler<IFormInput> = (data) => {
     nextStep();
@@ -136,7 +157,7 @@ const BookingContact = () => {
           ) : (
             ""
           )}
-          <Input
+          {/* <Input
             type="number"
             placeholder="Phone Number"
             label="Phone Number"
@@ -150,7 +171,23 @@ const BookingContact = () => {
                 message: "This field is required",
               },
             }}
-          />
+          /> */}
+
+          <div className="relative w-full">
+            <PhoneInput
+              defaultCountry="ng"
+              value={field.value}
+              onChange={field.onChange}
+              className=" h-14 w-full max-w-[500px] rounded-md bg-bgColor m:h-12 md:h-14"
+              inputClassName="phoneInputStyle"
+            />
+            {errors && errors["phoneNumber"] && (
+              <span className="absolute -bottom-5 left-0 text-[.8rem] text-primaryRed">
+                {errors["phoneNumber"].message}
+              </span>
+            )}
+          </div>
+
           <Input
             type="email"
             placeholder="Email"
@@ -165,6 +202,7 @@ const BookingContact = () => {
                 message: "This field is required",
               },
             }}
+            className="!lowercase"
           />
         </div>
         <NextStepButton />
